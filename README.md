@@ -1,5 +1,7 @@
 # ip-tracker-basic
-PHP PDO MySQL client ip url requested tracker
+What is it: PHP PDO MySQL client-ip url-requested tracker
+
+Anytime a webpage with this tracker included, will trigger an ip request and current url request to be stored into the Tracking database.
 
 This ip-tracker tracks both the client's ip-address, the url-requested, and the time the url was requested.
 
