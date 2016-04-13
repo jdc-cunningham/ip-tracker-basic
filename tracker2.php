@@ -1,15 +1,14 @@
 <?php
-// Web tracker PHP PDO MySQL
-// Date created: 04/12/2016 10:31 PM 
-// Author: Jacob David C Cunningham 
 // My website cunninghamwebdd.com
+// Web tracker v2 by Jacob David C Cunningham 
+// Date created: 04/12/2016 10:31 PM 
 // Location: Sedalia MO
 
 // Get your public ip-address if you're developing locally so that you don't log your own ip-address
 // If you don't know your public ip-address, you can go to Google.com and search "What is my ip address"
 
 // This is written with PDO to MySQL database query
-function track() {
+function track2() {
     // Your local ip address
     // Leave this blank eg. "" if you don't care about capturing your own ip address
     $local_ip = "";
@@ -27,7 +26,7 @@ function track() {
 	$client_ip = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
     }
 
-    // Compare client's ip address to yours
+    // Sompare client's ip address to yours
     if ($client_ip != $local_ip) {
 	// Define id, date_requested, initial num_visits
 	$id = "";
@@ -47,16 +46,18 @@ function track() {
 	    echo 'Connection failed: ' . $e->getMessage();
 	}
         // start the check if this client has visited your website before
-        $stmt = $link->prepare('SELECT client_ip FROM clients where client_ip=:client_ip');
+        $stmt = $link->prepare('SELECT COUNT(*) FROM clients where client_ip=:client_ip');
 	$stmt->bindParam(':client_ip', $client_ip, PDO::PARAM_STR);
-	if ($stmt->execute()) {
+	$stmt->execute();
+	$client_count = $stmt->fetchColumn(0);
+	if($client_count > 0) {
 	    // This means that this page has been visited before by this client
 	    // Increment clients num_visits
-	    $stmt2 = $link->prepare('UPDATE clients SET num_visits=num_vists+1 WHERE client_ip=:client_ip');
+	    $stmt2 = $link->prepare('UPDATE clients SET num_visits=num_visits+1 WHERE client_ip=:client_ip');
 	    $stmt2->bindParam(':client_ip', $client_ip, PDO::PARAM_STR);
 	    $stmt2->execute();
 	    // Insert visits entry
-	    $stmt3 = $link->prepare('INSERT INTO visits VALUES (:id, :client_ip, :url_requested, :date_requested');
+	    $stmt3 = $link->prepare('INSERT INTO visits VALUES (:id, :client_ip, :url_requested, :date_requested)');
 	    $stmt3->bindParam(':id', $id, PDO::PARAM_INT);
 	    $stmt3->bindParam(':client_ip', $client_ip, PDO::PARAM_STR);
 	    $stmt3->bindParam(':url_requested', $url_requested, PDO::PARAM_STR);
@@ -66,22 +67,22 @@ function track() {
 	else {
 	    // Client has not visited your website before
 	    // Create new entry for clients
-	    $stmt4 = $link->prepare('INSERT INTO clients VALUES (:id, :client_ip, :num_visits');
+	    $stmt4 = $link->prepare('INSERT INTO clients VALUES (:id, :client_ip, :num_visits)');
 	    $stmt4->bindParam(':id', $id, PDO::PARAM_INT);
 	    $stmt4->bindParam(':client_ip', $client_ip, PDO::PARAM_STR);
 	    $stmt4->bindParam(':num_visits', $num_visits, PDO::PARAM_INT);
 	    $stmt4->execute();
 	    // Create new entry for visits
-	    $stmt5 = $link->prepare('INSERT INTO visits VALUES (:id, :client_ip, :url_requested, :date_requested');
+	    $stmt5 = $link->prepare('INSERT INTO visits VALUES (:id, :client_ip, :url_requested, :date_requested)');
 	    $stmt5->bindParam(':id', $id, PDO::PARAM_INT);
 	    $stmt5->bindParam(':client_ip', $client_ip, PDO::PARAM_STR);
 	    $stmt5->bindParam(':url_requested', $url_requested, PDO::PARAM_STR);
-	    $stmt5->bindParam(':date_requested', $url_requested, PDO::PARAM_STR);
+	    $stmt5->bindParam(':date_requested', $date_requested, PDO::PARAM_STR);
 	    $stmt5->execute();
 	}
     }
 }
 
-track();
+track2();
 
 ?>
