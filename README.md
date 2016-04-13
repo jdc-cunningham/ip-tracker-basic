@@ -38,7 +38,7 @@ I use PHPMyAdmin to create and manage my databases.
 ## How to use ip-tracker-basic
 
 
-After creating the database called **Tracking** with collation *utf8_unicode_ci*, you will need to import the included tables: *clients.sql* and *visits.sql*.
+After creating the database called **Tracking** with collation *utf8_unicode_ci*, you will need to import the included tables: *clients.sql* and *visits.sql*
 
 
 If you'd prefer to create the tables, the columns for each table are:
