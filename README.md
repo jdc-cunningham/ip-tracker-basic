@@ -44,9 +44,14 @@ After creating the database called **Tracking** with collation *utf8_unicode_ci*
 If you'd prefer to create the tables, the columns for each table are:
 
 
-clients.sql : id, client_ip, num_visits
+clients.sql : 
 
-visits.sql  : id, client_ip, url_requested, date_requested
+id, client_ip, num_visits
+
+
+visits.sql  : 
+
+id, client_ip, url_requested, date_requested
 
 
 Next you will need to open up tracker2.php and enter your database's user account and password in order to query the Tracking database on your webserver.
