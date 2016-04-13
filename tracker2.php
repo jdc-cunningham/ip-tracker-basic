@@ -1,6 +1,7 @@
 <?php
-// My website cunninghamwebdd.com
-// Web tracker v2 by Jacob David C Cunningham 
+// Author: Jacob David C Cunningham
+// My website: cunninghamwebdd.com
+// Title: Web tracker v2
 // Date created: 04/12/2016 10:31 PM 
 // Location: Sedalia MO
 
