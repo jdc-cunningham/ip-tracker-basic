@@ -1,6 +1,6 @@
 <?php
 // Author: Jacob David C Cunningham
-// My website: cunninghamwebdd.com
+// My website: https://cunninghamwebdd.com
 // Title: Web tracker v2
 // Date created: 04/12/2016 10:31 PM 
 // Date modified: 10/08/2016 07:13 AM
